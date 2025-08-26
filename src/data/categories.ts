@@ -20,19 +20,19 @@ import {
   Flame,
   Droplets 
 } from "lucide-react";
-
+import { LucideIcon } from "lucide-react"; // If using Lucide icons
 // Define the type for a category
 export interface Category {
   title: string;
   href: string;
   description: string;
-  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: LucideIcon;
   color: string;
   tools: {
     title: string;
     href: string;
     description: string;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    icon: LucideIcon;
     comingSoon?: boolean;
   }[];
 }
