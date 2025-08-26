@@ -95,7 +95,7 @@ export default function CharacterCounterTool() {
   };
 
   const handleDownload = (format: ExportFormat = 'txt') => {
-    let content = text.startsWith('<') ? htmlToText(text) : text;
+    const contentt = text.startsWith('<') ? htmlToText(text) : text;
     let filename = 'text-content';
     let mimeType = 'text/plain';
     
@@ -117,7 +117,7 @@ export default function CharacterCounterTool() {
         filename += '.txt';
     }
     
-    const blob = new Blob([content], { type: mimeType });
+    const blob = new Blob([contentt], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

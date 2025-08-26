@@ -348,7 +348,7 @@ export function Header() {
                     <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-foreground mb-2">No results found</h3>
                     <p className="text-muted-foreground">
-                      No tools found for "{searchQuery}". Try different keywords.
+                      No tools found for &quot;{searchQuery}&quot;. Try different keywords.
                     </p>
                   </div>
                 ) : searchQuery ? (
@@ -397,10 +397,10 @@ export function Header() {
                       Type to search through all available tools and utilities
                     </p>
                     <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-                      <div className="p-3 bg-muted rounded-lg">Try "counter"</div>
-                      <div className="p-3 bg-muted rounded-lg">Try "converter"</div>
-                      <div className="p-3 bg-muted rounded-lg">Try "calculator"</div>
-                      <div className="p-3 bg-muted rounded-lg">Try "generator"</div>
+                      <div className="p-3 bg-muted rounded-lg">Try &quot;counter&quot;</div>
+                      <div className="p-3 bg-muted rounded-lg">Try &quot;converter&quot;</div>
+                      <div className="p-3 bg-muted rounded-lg">Try &quot;calculator&quot;</div>
+                      <div className="p-3 bg-muted rounded-lg">Try &quot;generator&quot;</div>
                     </div>
                   </div>
                 )}

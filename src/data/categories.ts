@@ -26,13 +26,13 @@ export interface Category {
   title: string;
   href: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
   tools: {
     title: string;
     href: string;
     description: string;
-    icon: React.ComponentType<any>;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     comingSoon?: boolean;
   }[];
 }
