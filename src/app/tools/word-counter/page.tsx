@@ -301,34 +301,33 @@ export default function WordCounterTool() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Main Tool Section - 3/4 width */}
         <div className="lg:col-span-3 space-y-6">
-          {/* 4 Boxes at the Top - Words, Characters, Read Time, Speak Time */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* 4 Boxes at the Top - SMALLER SIZE */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3"> {/* Reduced gap */}
             <Card className="text-center">
-              <CardContent className="p-4 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-blue-600">{stats.words}</div>
-                <Label className="text-sm font-medium">Words</Label>
+              <CardContent className="p-3 flex flex-col items-center justify-center"> {/* Reduced padding */}
+                <div className="text-2xl font-bold text-blue-600">{stats.words}</div> {/* Smaller text */}
+                <Label className="text-xs font-medium">Words</Label> {/* Smaller label */}
               </CardContent>
             </Card>
             <Card className="text-center">
-              <CardContent className="p-4 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-green-600">{stats.characters}</div>
-                <Label className="text-sm font-medium">Characters</Label>
+              <CardContent className="p-3 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold text-green-600">{stats.characters}</div>
+                <Label className="text-xs font-medium">Characters</Label>
               </CardContent>
             </Card>
             <Card className="text-center">
-              <CardContent className="p-4 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-cyan-600">{stats.readingTime}</div>
-                <Label className="text-sm font-medium">Read Time (min)</Label>
+              <CardContent className="p-3 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold text-cyan-600">{stats.readingTime}</div>
+                <Label className="text-xs font-medium">Read Time</Label>
               </CardContent>
             </Card>
             <Card className="text-center">
-              <CardContent className="p-4 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-indigo-600">{stats.speakingTime}</div>
-                <Label className="text-sm font-medium">Speak Time (min)</Label>
+              <CardContent className="p-3 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold text-indigo-600">{stats.speakingTime}</div>
+                <Label className="text-xs font-medium">Speak Time</Label>
               </CardContent>
             </Card>
           </div>
-
           {/* Text Input Area */}
           <Card>
             <CardHeader className="pb-3">
@@ -629,6 +628,116 @@ export default function WordCounterTool() {
       <div className="mt-12">
         {/* This is where the detailed SEO content will go */}
       </div>
+
+      {/* Comprehensive SEO Content Section */}
+      <div className="mt-12 prose prose-lg max-w-none dark:prose-invert">
+        <h2>Word Counter Tool - Count Words & Characters Accurately</h2>
+        
+        <p>Our Advanced Word Counter is a powerful online tool that provides comprehensive text analysis beyond simple word counting. Whether you're a writer, student, SEO professional, or content creator, our tool helps you optimize your writing for clarity, readability, and impact.</p>
+
+        <h3>Why Use Our Word Counter?</h3>
+        <ul>
+          <li><strong>Real-time Analysis</strong>: Get instant feedback as you type or paste text</li>
+          <li><strong>Advanced Statistics</strong>: Track words, characters, sentences, paragraphs, and more</li>
+          <li><strong>Reading Level Assessment</strong>: Ensure your content matches your target audience</li>
+          <li><strong>Keyword Density Analysis</strong>: Optimize content for SEO and readability</li>
+          <li><strong>Writing Goals</strong>: Set and track progress toward word and character targets</li>
+          <li><strong>Time Estimates</strong>: Calculate reading and speaking time for better planning</li>
+        </ul>
+
+        <h3>Perfect For Various Use Cases</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Academic Writing</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Meet essay word requirements, improve readability, and enhance your academic papers with precise text analysis.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Content Creation</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Optimize blog posts, articles, and social media content for both readers and search engines.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Professional Documents</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Craft perfect resumes, reports, and business communications with appropriate length and clarity.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">SEO Optimization</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Analyze keyword density and reading level to create search-engine-friendly content that ranks well.</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* FAQ Section with Accordion */}
+        <h3>Frequently Asked Questions</h3>
+        <div className="space-y-4 my-6">
+          <Card>
+            <CardHeader className="pb-3 cursor-pointer" onClick={() => {}}>
+              <CardTitle className="text-lg flex items-center justify-between">
+                How accurate is the word count?
+                <span className="text-xl">+</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="hidden">
+              <p>Our word counter is extremely accurate and handles various text formats, including pasted content from PDFs, Word documents, and web pages. It properly counts words, characters with and without spaces, and ignores HTML tags when calculating statistics.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-3 cursor-pointer" onClick={() => {}}>
+              <CardTitle className="text-lg flex items-center justify-between">
+                What is reading ease score?
+                <span className="text-xl">+</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="hidden">
+              <p>The reading ease score (Flesch Reading Ease) measures how easy your text is to understand. Higher scores (90-100) indicate very easy reading suitable for 5th graders, while lower scores (0-60) indicate difficult text suitable for college graduates.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-3 cursor-pointer" onClick={() => {}}>
+              <CardTitle className="text-lg flex items-center justify-between">
+                Can I set writing goals?
+                <span className="text-xl">+</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="hidden">
+              <p>Yes! Our tool allows you to set custom word and character goals. Enable writing goals in the dedicated section, and track your progress with visual indicators that show how close you are to reaching your targets.</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-3 cursor-pointer" onClick={() => {}}>
+              <CardTitle className="text-lg flex items-center justify-between">
+                Is my text stored or saved?
+                <span className="text-xl">+</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="hidden">
+              <p>No. Your privacy is important to us. All text analysis happens in your browser, and we never store, save, or transmit your content to our servers. Your writing remains completely private.</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <h3>Tips for Effective Writing</h3>
+        <p>Use our word counter tool to improve your writing: aim for 60-70 reading ease for general audiences, keep sentences under 20 words, use paragraphs to break up long text, and maintain optimal keyword density of 1-2% for SEO content.</p>
+      </div>
+
     </div>
   );
 }
+   
