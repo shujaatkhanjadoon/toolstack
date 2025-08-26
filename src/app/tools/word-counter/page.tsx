@@ -144,105 +144,130 @@ export default function WordCounterTool() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Calculate comprehensive text statistics
-  const calculateAdvancedStats = (inputText: string): AdvancedTextStats => {
-    // Convert HTML to plain text for accurate counting
-    const plainText = inputText.startsWith('<') ? htmlToText(inputText) : inputText;
-    
-    if (!plainText.trim()) {
-      return {
-        words: 0,
-        characters: 0,
-        charactersNoSpaces: 0,
-        sentences: 0,
-        paragraphs: 0,
-        readingTime: 0,
-        speakingTime: 0,
-        readingLevel: 0,
-        readingEase: 0,
-        keywordDensity: [],
-        longestWord: "",
-        averageWordLength: 0,
-      };
-    }
+  const htmlToText = (html: string): string => {
+  // Create a temporary div to parse HTML
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+  
+  // Get text content and clean it up
+  return tempDiv.textContent || tempDiv.innerText || ''
+    .replace(/\s+/g, ' ')          // Collapse multiple spaces
+    .trim();                       // Trim whitespace
+};
 
-    // Basic statistics - USING PLAIN TEXT NOW
-    const characters = plainText.length;
-    const charactersNoSpaces = plainText.replace(/\s+/g, "").length;
-    
-    // Word count
-    const words = plainText.trim() ? plainText.trim().split(/\s+/).length : 0;
-    
-    // Sentence count
-    const sentences = plainText.split(/[.!?]+/).filter(sentence => sentence.trim()).length;
-    
-    // Paragraph count
-    const paragraphs = plainText.trim() ? plainText.split(/\n+/).filter(para => para.trim()).length : 0;
-    
-    // Reading and speaking time (words per minute)
-    const readingTime = Math.ceil(words / 200);
-    const speakingTime = Math.ceil(words / 130);
-    
-    // Flesch-Kincaid Reading Level and Ease
-    const sentencesCount = sentences || 1;
-    const wordsCount = words || 1;
-    
-    // Count syllables
-    let totalSyllables = 0;
-    const wordsArray = plainText.toLowerCase().match(/\b\w+\b/g) || [];
-    wordsArray.forEach(word => {
-      totalSyllables += countSyllables(word);
-    });
-    
-    const readingLevel = Math.max(0, Math.round(
-      0.39 * (wordsCount / sentencesCount) + 
-      11.8 * (totalSyllables / wordsCount) - 
-      15.59
-    ));
-    
-    const readingEase = Math.max(0, Math.min(100, Math.round(
-      206.835 - 
-      1.015 * (wordsCount / sentencesCount) - 
-      84.6 * (totalSyllables / wordsCount)
-    )));
-    
-    // Keyword density analysis (top 10)
-    const wordFrequency: { [key: string]: number } = {};
-    wordsArray.forEach(word => {
-      if (word.length > 2) { // Include shorter words too
-        wordFrequency[word] = (wordFrequency[word] || 0) + 1;
-      }
-    });
-    
-    const keywordDensity = Object.entries(wordFrequency)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
-      .map(([word, count]) => ({
-        word,
-        count,
-        percentage: ((count / words) * 100).toFixed(1) + '%'
-      }));
-    
-    // Longest word and average word length
-    const longestWord = wordsArray.reduce((longest, word) => 
-      word.length > longest.length ? word : longest, "");
-    const averageWordLength = words ? Math.round(charactersNoSpaces / words * 10) / 10 : 0;
-
+// Calculate comprehensive text statistics - FIXED VERSION
+const calculateAdvancedStats = (inputText: string): AdvancedTextStats => {
+  // Convert HTML to plain text for accurate counting
+  const plainText = inputText.startsWith('<') ? htmlToText(inputText) : inputText;
+  
+  if (!plainText.trim()) {
     return {
-      words,
-      characters,
-      charactersNoSpaces,
-      sentences,
-      paragraphs,
-      readingTime,
-      speakingTime,
-      readingLevel,
-      readingEase,
-      keywordDensity,
-      longestWord,
-      averageWordLength,
+      words: 0,
+      characters: 0,
+      charactersNoSpaces: 0,
+      sentences: 0,
+      paragraphs: 0,
+      readingTime: 0,
+      speakingTime: 0,
+      readingLevel: 0,
+      readingEase: 0,
+      keywordDensity: [],
+      longestWord: "",
+      averageWordLength: 0,
     };
-  };
+  }
 
+  // Basic statistics - USING PLAIN TEXT NOW
+  const characters = plainText.length;
+  const charactersNoSpaces = plainText.replace(/\s+/g, "").length;
+  
+  // Word count
+  const words = plainText.trim() ? plainText.trim().split(/\s+/).length : 0;
+  
+  // Sentence count
+  const sentences = plainText.split(/[.!?]+/).filter(sentence => sentence.trim()).length;
+  
+  // Paragraph count - FIXED: Count actual paragraphs in HTML or plain text
+  let paragraphs = 0;
+  if (inputText.startsWith('<')) {
+    // For HTML content, count <p> tags and line breaks
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = inputText;
+    // Count paragraph tags and divs that might contain paragraphs
+    paragraphs = tempDiv.querySelectorAll('p, div').length || 
+                 (tempDiv.textContent?.split('\n').filter(line => line.trim()).length || 0);
+  } else {
+    // For plain text, count lines with content
+    paragraphs = plainText.split(/\n+/).filter(para => para.trim()).length;
+  }
+  
+  // Ensure at least 1 paragraph if there's any content
+  if (words > 0 && paragraphs === 0) paragraphs = 1;
+  
+  // Reading and speaking time (words per minute)
+  const readingTime = Math.ceil(words / 200);
+  const speakingTime = Math.ceil(words / 130);
+  
+  // Flesch-Kincaid Reading Level and Ease
+  const sentencesCount = sentences || 1;
+  const wordsCount = words || 1;
+  
+  // Count syllables
+  let totalSyllables = 0;
+  const wordsArray = plainText.toLowerCase().match(/\b\w+\b/g) || [];
+  wordsArray.forEach(word => {
+    totalSyllables += countSyllables(word);
+  });
+  
+  const readingLevel = Math.max(0, Math.round(
+    0.39 * (wordsCount / sentencesCount) + 
+    11.8 * (totalSyllables / wordsCount) - 
+    15.59
+  ));
+  
+  const readingEase = Math.max(0, Math.min(100, Math.round(
+    206.835 - 
+    1.015 * (wordsCount / sentencesCount) - 
+    84.6 * (totalSyllables / wordsCount)
+  )));
+  
+  // Keyword density analysis (top 10)
+  const wordFrequency: { [key: string]: number } = {};
+  wordsArray.forEach(word => {
+    if (word.length > 2) { // Include shorter words too
+      wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+    }
+  });
+  
+  const keywordDensity = Object.entries(wordFrequency)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([word, count]) => ({
+      word,
+      count,
+      percentage: ((count / words) * 100).toFixed(1) + '%'
+    }));
+  
+  // Longest word and average word length
+  const longestWord = wordsArray.reduce((longest, word) => 
+    word.length > longest.length ? word : longest, "");
+  const averageWordLength = words ? Math.round(charactersNoSpaces / words * 10) / 10 : 0;
+
+  return {
+    words,
+    characters,
+    charactersNoSpaces,
+    sentences,
+    paragraphs,
+    readingTime,
+    speakingTime,
+    readingLevel,
+    readingEase,
+    keywordDensity,
+    longestWord,
+    averageWordLength,
+  };
+};
   // Generate proper text summary
   const generateSummary = () => {
     // Use plain text for summary too
@@ -664,7 +689,7 @@ export default function WordCounterTool() {
           <ul className="text-gray-700 dark:text-gray-300 mb-6">
             <li className="my-2"><strong>Real-time Analysis</strong>: Get instant feedback as you type or paste text</li>
             <li className="my-2"><strong>Comprehensive Statistics</strong>: Track words, characters, sentences, paragraphs, and reading time</li>
-            <li className="my-2"><strong>Reading Level Assessment</strong>: Ensure your content matches your target audience's comprehension level</li>
+            <li className="my-2"><strong>Reading Level Assessment</strong>: Ensure your content matches your target audience&apos;s comprehension level</li>
             <li className="my-2"><strong>Keyword Density Analysis</strong>: Optimize content for SEO and readability</li>
             <li className="my-2"><strong>Writing Goals</strong>: Set and track progress toward word count targets</li>
             <li className="my-2"><strong>Time Estimates</strong>: Calculate reading and speaking time for better content planning</li>
@@ -758,7 +783,7 @@ export default function WordCounterTool() {
           <h3 className="text-xl md:text-2xl mt-8 mb-4 text-gray-800 dark:text-gray-200">Why Word Count Matters for SEO</h3>
           <p className="text-gray-700 dark:text-gray-300 mb-6">Word count is an important SEO factor because comprehensive content tends to perform better in search results. Longer content provides more opportunities to cover a topic thoroughly, include relevant keywords naturally, and demonstrate expertise to both readers and search engines. However, quality always trumps quantity—focus on creating valuable, well-structured content that addresses user intent.</p>
 
-          <p className="text-gray-700 dark:text-gray-300">Our <strong>free word counter tool</strong> helps you create optimally-length content that ranks well while engaging your readers. Whether you're writing academic papers, blog content, professional documents, or social media posts, our tool provides the insights you need to refine your writing.</p>
+          <p className="text-gray-700 dark:text-gray-300">Our <strong>free word counter tool</strong> helps you create optimally-length content that ranks well while engaging your readers. Whether you&apos;re writing academic papers, blog content, professional documents, or social media posts, our tool provides the insights you need to refine your writing.</p>
         </div>
       </section>
 
