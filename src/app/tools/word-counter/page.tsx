@@ -21,9 +21,6 @@ import {
   AlertCircle,
   Clock,
   Mic,
-  FileText,
-  FileType,
-  Image,
   Hash,
   CaseSensitive,
   SpellCheck2,
@@ -86,12 +83,12 @@ const generateBetterSummary = (text: string, sentenceCount: number = 3): string 
 };
 
 // HTML to text converter for accurate statistics
-const htmlToText = (html: string): string => {
-  return html
-    .replace(/<[^>]*>/g, ' ')      // Remove HTML tags
-    .replace(/\s+/g, ' ')          // Collapse multiple spaces
-    .trim();                       // Trim whitespace
-};
+// const htmlToText = (html: string): string => {
+//   return html
+//     .replace(/<[^>]*>/g, ' ')      // Remove HTML tags
+//     .replace(/\s+/g, ' ')          // Collapse multiple spaces
+//     .trim();                       // Trim whitespace
+// };
 
 // Define TypeScript interface for FAQItem props
 interface FAQItemProps {
@@ -345,7 +342,7 @@ const calculateAdvancedStats = (inputText: string): AdvancedTextStats => {
 
       {/* Tool Title Section */}
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold mb-2">Advanced Word Counter</h1>
+        <h1 className="text-4xl mb-2">Advanced Word Counter</h1>
         <p className="text-muted-foreground">
           Comprehensive text analysis with reading level, keyword density, and writing goals
         </p>

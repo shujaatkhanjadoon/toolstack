@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import "./globals.css";
 
-const quicksand = Poppins({ subsets: ["latin"],
-  weight: ["400", "500", "600", "700"] });
+const poppins = Poppins({ subsets: ["latin"],
+  weight: ["400", "500", "600"] });
+
+  const montserrat = Montserrat({ 
+  subsets: ["latin"],
+  weight: ["400", "500"]
+});
 
 export const metadata: Metadata = {
   title: "ToolStack - Your All-in-One Suite of Modern Web Tools",
@@ -20,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={quicksand.className}>
+      <body className={`${poppins.className} ${montserrat.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
