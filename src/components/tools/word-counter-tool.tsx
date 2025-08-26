@@ -1,5 +1,6 @@
 "use client";
-
+// Add import at top
+import TiptapEditor from "@/components/tiptap-editor";
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -490,13 +491,11 @@ export default function WordCounterTool() {
                 </div>
               </div>
 
-              <Textarea
-                ref={textareaRef}
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Start typing or paste your text here..."
-                className="min-h-[350px] resize-vertical font-mono text-base leading-relaxed"
-              />
+             <TiptapEditor
+  content={text}
+  onChange={setText}
+  placeholder="Start typing or paste your text here..."
+/>
 
               {/* Action Buttons at Bottom */}
               <div className="flex flex-wrap gap-2 pt-2 border-t">
