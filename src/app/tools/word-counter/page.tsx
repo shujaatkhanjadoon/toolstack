@@ -633,7 +633,7 @@ export default function WordCounterTool() {
       <div className="mt-12 prose prose-lg max-w-none dark:prose-invert">
         <h2>Word Counter Tool - Count Words & Characters Accurately</h2>
         
-        <p>Our Advanced Word Counter is a powerful online tool that provides comprehensive text analysis beyond simple word counting. Whether you're a writer, student, SEO professional, or content creator, our tool helps you optimize your writing for clarity, readability, and impact.</p>
+        <p>Our Advanced Word Counter is a powerful online tool that provides comprehensive text analysis beyond simple word counting. Whether you&apos;re a writer, student, SEO professional, or content creator, our tool helps you optimize your writing for clarity, readability, and impact.</p>
 
         <h3>Why Use Our Word Counter?</h3>
         <ul>

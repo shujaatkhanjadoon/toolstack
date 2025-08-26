@@ -5,7 +5,7 @@ export interface Category {
   title: string;
   href: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string; // We'll use this for hover effects
 }
 
