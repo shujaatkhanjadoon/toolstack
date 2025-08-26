@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next';
+
 import type { Metadata } from "next";
 import { Poppins, Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -36,6 +38,7 @@ export default function RootLayout({
           {/* MAIN FIX: Removed 'container' and 'py-4' here. We'll control padding on a per-page basis. */}
           <main className="flex-1">
             {children}
+            <Analytics />
           </main>
           <Footer />
         </ThemeProvider>
