@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import type { Metadata } from "next";
 import { Poppins, Montserrat } from "next/font/google";
@@ -39,6 +40,7 @@ export default function RootLayout({
           <main className="flex-1">
             {children}
             <Analytics />
+            <SpeedInsights />
           </main>
           <Footer />
         </ThemeProvider>
