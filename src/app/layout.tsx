@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const quicksand = Poppins({ subsets: ["latin"],
+  weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
   title: "ToolStack - Your All-in-One Suite of Modern Web Tools",
@@ -19,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={quicksand.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
